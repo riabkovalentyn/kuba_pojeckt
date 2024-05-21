@@ -9,6 +9,7 @@ services:
     environment:
       POSTGRES_USER: user-name
       POSTGRES_PASSWORD: strong-password
+      POSTGRES_DB : weather_db
     volumes:
       - local_pgdata:/var/lib/postgresql/data
   pgadmin:
@@ -22,7 +23,8 @@ services:
       PGADMIN_DEFAULT_PASSWORD: strong-password
     volumes:
       - pgadmin-data:/var/lib/pgadmin
-
+    depends_on:
+      - postgres
 volumes:
   local_pgdata:
   pgadmin-data:
