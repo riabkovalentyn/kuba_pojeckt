@@ -4,7 +4,6 @@ import time
 import json
 
 
-
 local_pgdb = 'weather_db'
 hostname = '100.112.228.21'
 port = '5432'
@@ -77,5 +76,3 @@ while True:
         data = downloadweatherdata(city['lat'], city['lon'])
         weatherdatawrite(city['name'], data[0], data[1], data[2])
     time.sleep(600)
-
-
