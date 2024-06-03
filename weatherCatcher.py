@@ -41,7 +41,7 @@ cities = [
 ]
 
 
-def weatherdatawrite(city, temperature, windspeed, wtype):
+def weather_data_write(city, temperature, windspeed, wtype):
     query = "INSERT INTO public.weather (weather_city, weather_temperature, weather_windspeed, weather_type) VALUES ('"+city+"'::character varying, '"+str(temperature)+"'::numeric, '"+str(windspeed)+"'::numeric, '"+str(wtype)+"'::character varying)"
     try:
         # Establish the connection
@@ -62,7 +62,7 @@ def weatherdatawrite(city, temperature, windspeed, wtype):
         connection.close()
         
         
-def downloadweatherdata(lat, lon):
+def download_weather_data(lat, lon):
     url = f'https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current=temperature_2m,weather_code,wind_speed_10m'
     r = requests.get(url)
     data = json.loads(r.content)
@@ -73,6 +73,6 @@ def downloadweatherdata(lat, lon):
 
 while True:
     for city in cities:
-        data = downloadweatherdata(city['lat'], city['lon'])
-        weatherdatawrite(city['name'], data[0], data[1], data[2])
+        data = download_weather_data(city['lat'], city['lon'])
+        weather_data_write(city['name'], data[0], data[1], data[2])
     time.sleep(600)
