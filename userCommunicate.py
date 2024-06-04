@@ -2,7 +2,7 @@ import psycopg2
 import requests
 import time
 import json
-import weatherCatcher
+#import weatherCatcher
 
 
 local_pgdb = 'weather_db'

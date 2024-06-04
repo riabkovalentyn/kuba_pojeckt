@@ -75,4 +75,5 @@ while True:
     for city in cities:
         data = download_weather_data(city['lat'], city['lon'])
         weather_data_write(city['name'], data[0], data[1], data[2])
-    time.sleep(600)
+        time.sleep(25)
+
