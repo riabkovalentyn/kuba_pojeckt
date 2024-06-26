@@ -24,11 +24,13 @@ services:
     volumes:
       - pgadmin-data:/var/lib/pgadmin
     depends_on:
-      - postgres
+      - db
   backend:
     image: ghcr.io/riabkovalentyn/kuba_pojeckt:latest
     container_name: backend_container
     restart: always
+    depends_on:
+      - db
 volumes:
   local_pgdata:
   pgadmin-data:
