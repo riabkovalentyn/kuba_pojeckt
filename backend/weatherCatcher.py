@@ -2,6 +2,7 @@ import psycopg2
 import requests
 import time
 import json
+import datetime
 
 
 local_pgdb = 'weather_db'
@@ -41,8 +42,8 @@ cities = [
 ]
 
 
-def weather_data_write(city, temperature, windspeed, wtype):
-    query = "INSERT INTO public.weather (weather_city, weather_temperature, weather_windspeed, weather_type) VALUES ('"+city+"'::character varying, '"+str(temperature)+"'::numeric, '"+str(windspeed)+"'::numeric, '"+str(wtype)+"'::character varying)"
+def weather_data_write(city, temperature, windspeed, wtype, wdate):
+    query = "INSERT INTO public.weather (weather_city, weather_temperature, weather_windspeed, weather_type, weather_date) VALUES ('"+city+"'::character varying, '"+str(temperature)+"'::numeric, '"+str(windspeed)+"'::numeric, '"+str(wtype)+"'::character varying)+"+str(wdate)+"::date);"'"
     try:
         # Establish the connection
         connection = psycopg2.connect(
@@ -53,7 +54,7 @@ def weather_data_write(city, temperature, windspeed, wtype):
             port=port
         )
         cursor = connection.cursor()
-        cursor.execute(query, (city, temperature, windspeed, wtype))
+        cursor.execute(query, (city, temperature, windspeed, wtype, wdate))
         cursor.execute('SELECT * FROM public.weather ORDER BY weather_id ASC')
         connection.commit()
         print(cursor.fetchall())
